@@ -1,22 +1,23 @@
 const db = require("../config/db");
 
-const createRegistration = (data, callback) => {
-  const sql = `
+const createRegistration = async (data) => {
+  const query = `
     INSERT INTO webinar_registrations
     (full_name, email, phone, place)
-    VALUES (?, ?, ?, ?)
+    VALUES ($1, $2, $3, $4)
+    RETURNING id;
   `;
 
-  db.query(
-    sql,
-    [
-      data.fullName,
-      data.email,
-      data.phone,
-      data.place,
-    ],
-    callback
-  );
+  const values = [
+    data.fullName,
+    data.email,
+    data.phone,
+    data.place,
+  ];
+
+  const result = await db.query(query, values);
+
+  return result.rows[0];
 };
 
 module.exports = {

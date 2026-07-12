@@ -1,47 +1,37 @@
 const { createRegistration } = require("../models/webinarModel");
 
-const registerWebinar = (req, res) => {
+const registerWebinar = async (req, res) => {
+  try {
+    const { fullName, email, phone, place } = req.body;
 
-  const {
-    fullName,
-    email,
-    phone,
-    place,
-  } = req.body;
+    if (!fullName || !email || !phone || !place) {
+      return res.status(400).json({
+        success: false,
+        message: "Please fill all required fields.",
+      });
+    }
 
-  if (!fullName || !email || !phone || !place) {
-    return res.status(400).json({
-      success: false,
-      message: "Please fill all required fields.",
-    });
-  }
-
-  createRegistration(
-    {
+    const result = await createRegistration({
       fullName,
       email,
       phone,
       place,
-    },
-    (err, result) => {
+    });
 
-      if (err) {
-        console.log(err);
+    res.status(201).json({
+      success: true,
+      message: "Registration Successful",
+      registrationId: result.id,
+    });
 
-        return res.status(500).json({
-          success: false,
-          message: "Database Error",
-        });
-      }
+  } catch (err) {
+    console.error(err);
 
-      res.status(201).json({
-        success: true,
-        message: "Registration Successful",
-        registrationId: result.insertId,
-      });
-
-    }
-  );
+    res.status(500).json({
+      success: false,
+      message: "Database Error",
+    });
+  }
 };
 
 module.exports = {
