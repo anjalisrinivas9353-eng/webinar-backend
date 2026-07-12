@@ -23,16 +23,15 @@ const registerWebinar = async (req, res) => {
       message: "Registration Successful",
       registrationId: result.id,
     });
-
   } catch (err) {
-  console.error(err);
+    console.error("Database Error:", err);
 
-  res.status(500).json({
-    success: false,
-    message: err.message,
-    error: err,
-  });
-}
+    res.status(500).json({
+      success: false,
+      message: err.message,
+      error: err.code,
+    });
+  }
 };
 
 module.exports = {
