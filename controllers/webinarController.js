@@ -25,13 +25,14 @@ const registerWebinar = async (req, res) => {
     });
 
   } catch (err) {
-    console.error(err);
+  console.error(err);
 
-    res.status(500).json({
-      success: false,
-      message: "Database Error",
-    });
-  }
+  res.status(500).json({
+    success: false,
+    message: err.message,
+    error: err,
+  });
+}
 };
 
 module.exports = {
