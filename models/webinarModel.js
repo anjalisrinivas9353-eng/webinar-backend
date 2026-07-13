@@ -16,7 +16,12 @@ const createRegistration = async (data) => {
   ];
 
   try {
+    console.log("Running SQL query...");
+
     const result = await db.query(query, values);
+
+    console.log("SQL query completed.");
+
     return result.rows[0];
   } catch (err) {
     console.error("DATABASE QUERY ERROR:", err);
