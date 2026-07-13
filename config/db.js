@@ -1,5 +1,9 @@
 const { Pool } = require("pg");
 
+console.log("DB_HOST:", process.env.DB_HOST);
+console.log("DB_USER:", process.env.DB_USER);
+console.log("DB_PORT:", process.env.DB_PORT);
+
 const db = new Pool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -10,9 +14,3 @@ const db = new Pool({
     rejectUnauthorized: false,
   },
 });
-
-db.connect()
-  .then(() => console.log("✅ PostgreSQL Connected"))
-  .catch((err) => console.error("❌ Database Connection Failed", err));
-
-module.exports = db;
