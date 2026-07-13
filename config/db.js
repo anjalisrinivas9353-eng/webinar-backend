@@ -14,3 +14,5 @@ const db = new Pool({
     rejectUnauthorized: false,
   },
 });
+
+module.exports = db;
