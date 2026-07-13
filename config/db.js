@@ -15,7 +15,6 @@ const db = new Pool({
   },
 });
 
-console.log("DB TYPE:", typeof db);
-console.log("HAS QUERY:", typeof db.query);
+
 
 module.exports = db;

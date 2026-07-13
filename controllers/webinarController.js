@@ -3,7 +3,7 @@ const resend = require("../config/resend");
 const registrationEmail = require("../utils/emailTemplate");
 
 const registerWebinar = async (req, res) => {
-  console.log("Request Body:", req.body);
+  
 
   try {
     const { fullName, email, phone, place } = req.body;
@@ -15,7 +15,6 @@ const registerWebinar = async (req, res) => {
       });
     }
 
-    console.log("Step 1: Request received");
     // Save registration to Supabase
     const result = await createRegistration({
       fullName,
@@ -25,7 +24,6 @@ const registerWebinar = async (req, res) => {
     });
 
     // Send confirmation email
-  console.log("Step 2: Registration saved");
 
 const emailResponse = await resend.emails.send({
   from: "onboarding@resend.dev",
@@ -33,8 +31,6 @@ const emailResponse = await resend.emails.send({
   subject: "Webinar Registration Successful",
   html: registrationEmail(fullName),
 });
-
-console.log("Step 3: Email response", emailResponse);
 
     return res.status(201).json({
       success: true,
