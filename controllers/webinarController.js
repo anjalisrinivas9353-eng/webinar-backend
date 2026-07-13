@@ -15,6 +15,7 @@ const registerWebinar = async (req, res) => {
       });
     }
 
+    console.log("Step 1: Request received");
     // Save registration to Supabase
     const result = await createRegistration({
       fullName,
