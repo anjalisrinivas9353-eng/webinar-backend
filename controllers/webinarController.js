@@ -25,12 +25,16 @@ const registerWebinar = async (req, res) => {
     });
 
     // Send confirmation email
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: email,
-      subject: "Webinar Registration Successful",
-      html: registrationEmail(fullName),
-    });
+  console.log("Step 2: Registration saved");
+
+const emailResponse = await resend.emails.send({
+  from: "onboarding@resend.dev",
+  to: email,
+  subject: "Webinar Registration Successful",
+  html: registrationEmail(fullName),
+});
+
+console.log("Step 3: Email response", emailResponse);
 
     return res.status(201).json({
       success: true,
