@@ -9,10 +9,13 @@ const db = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  port: process.env.DB_PORT,
+  port: Number(process.env.DB_PORT),
   ssl: {
     rejectUnauthorized: false,
   },
 });
+
+console.log("DB TYPE:", typeof db);
+console.log("HAS QUERY:", typeof db.query);
 
 module.exports = db;
