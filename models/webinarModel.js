@@ -1,6 +1,9 @@
 const db = require("../config/db");
-console.log("Imported DB:", db);
-console.log("Imported DB Query:", typeof db.query);
+
+console.log("Imported DB =", db);
+console.log("Type of db =", typeof db);
+console.log("Type of db.query =", typeof db.query);
+
 const createRegistration = async (data) => {
   const query = `
     INSERT INTO webinar_registrations
